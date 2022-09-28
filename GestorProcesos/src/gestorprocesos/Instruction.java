@@ -14,6 +14,37 @@ public class Instruction {
     private String register1;
     private String register2;
     private int number;
+    private int weight;
+    private int line;
+    
+    private String error;
+
+    public Instruction() {
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public void setLine(int line) {
+        this.line = line;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
 
     public Instruction(String type) {
         this.type = type;
