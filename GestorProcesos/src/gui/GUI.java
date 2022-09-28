@@ -6,7 +6,7 @@ package gui;
 
 /**
  *
- * @author Usuario
+ * @author Kevin
  */
 public class GUI extends javax.swing.JFrame {
 
