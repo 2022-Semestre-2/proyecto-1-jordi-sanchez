@@ -31,7 +31,7 @@ public class instructionMaker {
     //errores de estructuracion del texto
     private Instruction parseStringtoInstruction(String text) {
         if (text.length() >= 3){ // verifica que el texto tenga almenos 3 letras
-            switch (text.substring(0, 2)) {
+            switch (text.substring(0, 3)) {
                 case "LOA": return loadpushInstruction(text, "LOAD", 2);
                 case "STO": return storeInstruction(text, 2);
                 case "MOV": return movInstruction(text, 1);
@@ -40,11 +40,11 @@ public class instructionMaker {
                 case "INC": return incdecInstruction(text, "INC", 1);
                 case "DEC": return incdecInstruction(text, "DEC", 1);
                 case "SWA": return swapInstruction(text, 1);
-//                case "INT": AAAAAA;
-                case "JMP": jmpjejneInstruction(text, "JMP", 2);
-//                case "CMP": AAAAAA;
-                case "JE ": jmpjejneInstruction(text, "JE", 2);
-                case "JNE": jmpjejneInstruction(text, "JNE", 2);
+                case "INT": return intInstruction(text);
+                case "JMP": return jmpjejneInstruction(text, "JMP", 2);
+                case "CMP": return cmpInstruction(text, 2);
+                case "JE ": return jmpjejneInstruction(text, "JE", 2);
+                case "JNE": return jmpjejneInstruction(text, "JNE", 2);
 //                case "PAR": AAAAAA;
                 case "PUS": return loadpushInstruction(text, "PUSH", 1);
                 case "POP": return generalInstruction(text, "POP", 1);
@@ -224,6 +224,44 @@ public class instructionMaker {
         return jmpjejne;
     }
     
+    //Crea una instruccion INT con sus validaciones necesarias, si la funcon tira una instruccion error es
+    //por una mala estructura de la instruccion INT
+    private Instruction intInstruction(String text) {
+        Instruction iNt = new Instruction();
+        if (text.length() < 7) {
+            return instructionErrorDefault();
+        } else {
+            if (text.substring(4, 7).equals("20H") || text.substring(4, 7).equals("09H") || text.substring(4, 7).equals("10H")) {
+                iNt.setRegister1(text.substring(4, 7));
+            } else {
+                return instructionErrorDefault();
+            }
+            iNt.setType("INT");
+            return iNt;
+        }
+    }
+    
+    //Crea una instruccion cmp con sus validaciones necesarias, si la funcon tira una instruccion error es
+    //por una mala estructura de la instruccion cmp
+    private Instruction cmpInstruction(String text, int wei) {
+        Instruction cmp = new Instruction();
+        if (text.length() < 10) { // verifica que el texto tenga almenos 4 letras
+            return instructionErrorDefault();
+        } else {    
+            String register1 = registerInstruction(text.substring(4, 6));
+            String register2 = registerInstruction(text.substring(8, 10));
+            if (register1.equals("ERROR") || register2.equals("ERROR")) { // verifica que el registro exista, si no es un error
+                return instructionErrorDefault();
+            } else { // si el registro existe sigue
+                cmp.setRegister1(register1);
+                cmp.setRegister2(register2);
+            }
+            cmp.setType("CMP");
+            cmp.setWeight(wei);
+            return cmp;
+        }
+    }
+    
     //Crea una instruccion de typo error por defaul
     private Instruction instructionErrorDefault() {
         Instruction error = new Instruction();
@@ -258,6 +296,6 @@ public class instructionMaker {
     }
     
     public static void main(String[] args) {
-        System.out.println("JMP -3124".substring(4));
+        System.out.println("INT 10H".substring(4,7));
     }
 }
