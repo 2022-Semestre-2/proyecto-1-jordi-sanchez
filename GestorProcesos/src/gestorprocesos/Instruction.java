@@ -64,9 +64,9 @@ public class Instruction {
                case "DX" -> {
                    return 4;
             }
-               case null -> {
+               /*case null -> {
                    return 5;
-               }
+               }*/
            default -> throw new AssertionError();
        }
    }

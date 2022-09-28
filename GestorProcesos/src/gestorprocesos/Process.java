@@ -60,9 +60,9 @@ public class Process {
                case "DX" -> {
                    return true;
             }
-               case null -> {
+               /*case null -> { 
                    return true;
-               }
+               }*/
            default -> {
                return  false;
             }
