@@ -14,6 +14,9 @@ public class BCP {
     private String BX = "0";
     private String CX = "0";
     private String DX = "0";
+    private String PC = "0";
+    private String IR = "0";
+    private String AC = "0";
     private String CPU;
     private String initTime;
     private String currentTime;
@@ -21,6 +24,30 @@ public class BCP {
 
     public int getLocation() {
         return location;
+    }
+
+    public String getPC() {
+        return PC;
+    }
+
+    public void setPC(String PC) {
+        this.PC = PC;
+    }
+
+    public String getIR() {
+        return IR;
+    }
+
+    public void setIR(String IR) {
+        this.IR = IR;
+    }
+
+    public String getAC() {
+        return AC;
+    }
+
+    public void setAC(String AC) {
+        this.AC = AC;
     }
 
     public void setLocation(int location) {
@@ -90,7 +117,5 @@ public class BCP {
     public void setState(String State) {
         this.State = State;
     }
-    
-    
-    
+  
 }
