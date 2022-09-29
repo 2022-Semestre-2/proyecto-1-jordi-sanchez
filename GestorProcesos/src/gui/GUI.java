@@ -4,6 +4,11 @@
  */
 package gui;
 
+import gestorprocesos.instructionMaker;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import programcontroller.FileLoader;
+
 /**
  *
  * @author Kevin
@@ -97,6 +102,11 @@ public class GUI extends javax.swing.JFrame {
         btnLoadFile.setBackground(new java.awt.Color(51, 153, 255));
         btnLoadFile.setForeground(new java.awt.Color(255, 255, 255));
         btnLoadFile.setText("Cargar archivo");
+        btnLoadFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadFileActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -464,6 +474,26 @@ public class GUI extends javax.swing.JFrame {
     private void txtAX_CPU2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAX_CPU2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAX_CPU2ActionPerformed
+
+    private void btnLoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadFileActionPerformed
+        FileLoader fileLoader = new FileLoader();
+        fileLoader.loadFile();
+        String fileContent = fileLoader.getContent();
+        if (fileContent != ""){
+            instructionMaker instructMaker = new instructionMaker();
+            instructMaker.createListInstruction(fileContent);
+            //faltaria el proceso de verificar si existen errores sintacticos
+            //en el archivo y añadirlo a un objeto programa para ser ejecutado
+            //y almacenados multiples de de estos
+        } else {
+            JFrame f = new JFrame("frame");
+                JOptionPane.showMessageDialog(f ,
+                "El archivo a cargar debe ser de extensión .ASM." ,
+                "Error de archivo cargado" ,
+                JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnLoadFileActionPerformed
 
     /**
      * @param args the command line arguments

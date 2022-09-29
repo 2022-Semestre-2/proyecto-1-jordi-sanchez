@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +20,7 @@ public class FileLoader {
     private String EXTENSION = ".asm";
     private String content = "";
     
-    FileLoader() {}
+    public FileLoader() {}
     
     public boolean isExtensionASM(String nameFile){
         String extensionFile = nameFile.substring(nameFile.length()-4);
@@ -42,9 +44,11 @@ public class FileLoader {
                 } catch (IOException el) {
                     el.printStackTrace();
                 }
-            } 
+            }
         }
     }
     
-    //metodo para convertir el contenido del archivo en un programa
+    public String getContent() {
+        return content;
+    }
 }
