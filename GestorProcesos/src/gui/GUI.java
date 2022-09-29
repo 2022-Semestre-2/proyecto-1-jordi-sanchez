@@ -8,6 +8,7 @@ import gestorprocesos.instructionMaker;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import programcontroller.FileLoader;
+import gestorprocesos.Process;
 
 /**
  *
@@ -479,18 +480,20 @@ public class GUI extends javax.swing.JFrame {
         FileLoader fileLoader = new FileLoader();
         fileLoader.loadFile();
         String fileContent = fileLoader.getContent();
-        if (fileContent != ""){
+        System.out.println(fileContent);
+        if (!fileContent.equals("")){
             instructionMaker instructMaker = new instructionMaker();
-            instructMaker.createListInstruction(fileContent);
-            //faltaria el proceso de verificar si existen errores sintacticos
-            //en el archivo y añadirlo a un objeto programa para ser ejecutado
-            //y almacenados multiples de de estos
+            Process process = new Process();
+            process.setListInstructions(instructMaker.createListInstruction(fileContent));
+            if (!process.searchError()) {
+                System.out.println("Se a podido cargar el proceso, falta poder cargarlo al controller de programa");
+            }
         } else {
             JFrame f = new JFrame("frame");
-                JOptionPane.showMessageDialog(f ,
-                "El archivo a cargar debe ser de extensión .ASM." ,
-                "Error de archivo cargado" ,
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(f ,
+            "El archivo a cargar debe ser de extensión .ASM." ,
+            "Error de archivo cargado" ,
+            JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_btnLoadFileActionPerformed

@@ -21,38 +21,41 @@ public class instructionMaker {
     public List<Instruction> createListInstruction(String text) {
         String[] arrayIntruction = text.split("\n");
         List<Instruction> instructionList = new ArrayList<>();
+        int lineInstruction = 1;
         for (String line : arrayIntruction) {
-            instructionList.add(parseStringtoInstruction(line));
+            instructionList.add(parseStringtoInstruction(line, lineInstruction));
+            lineInstruction += 1;
         }
         return instructionList;
     }
     
     //parcea un texto para crear una linea, según sea válido el texto por lo que puede identificar 
     //errores de estructuracion del texto
-    private Instruction parseStringtoInstruction(String text) {
+    private Instruction parseStringtoInstruction(String text, int lineInstruction) {
         if (text.length() >= 3){ // verifica que el texto tenga almenos 3 letras
             switch (text.substring(0, 3)) {
-                case "LOA": return loadpushInstruction(text, "LOAD", 2);
-                case "STO": return storeInstruction(text, 2);
-                case "MOV": return movInstruction(text, 1);
-                case "ADD": return generalInstruction(text, "ADD", 3);
-                case "SUB": return generalInstruction(text, "SUB", 3);
-                case "INC": return incdecInstruction(text, "INC", 1);
-                case "DEC": return incdecInstruction(text, "DEC", 1);
-                case "SWA": return swapInstruction(text, 1);
-                case "INT": return intInstruction(text);
-                case "JMP": return jmpjejneInstruction(text, "JMP", 2);
-                case "CMP": return cmpInstruction(text, 2);
-                case "JE ": return jmpjejneInstruction(text, "JE", 2);
-                case "JNE": return jmpjejneInstruction(text, "JNE", 2);
+                case "LOA": return loadpushInstruction(text, "LOAD", 2, lineInstruction);
+                case "STO": return storeInstruction(text, 2, lineInstruction);
+                case "MOV": return movInstruction(text, 1, lineInstruction);
+                case "ADD": return generalInstruction(text, "ADD", 3, lineInstruction);
+                case "SUB": return generalInstruction(text, "SUB", 3, lineInstruction);
+                case "INC": return incdecInstruction(text, "INC", 1, lineInstruction);
+                case "DEC": return incdecInstruction(text, "DEC", 1, lineInstruction);
+                case "SWA": return swapInstruction(text, 1, lineInstruction);
+                case "INT": return intInstruction(text, lineInstruction);
+                case "JMP": return jmpjejneInstruction(text, "JMP", 2, lineInstruction);
+                case "CMP": return cmpInstruction(text, 2, lineInstruction);
+                case "JE ": return jmpjejneInstruction(text, "JE", 2, lineInstruction);
+                case "JNE": return jmpjejneInstruction(text, "JNE", 2, lineInstruction);
 //                case "PAR": AAAAAA;
-                case "PUS": return loadpushInstruction(text, "PUSH", 1);
-                case "POP": return generalInstruction(text, "POP", 1);
+                case "PUS": return loadpushInstruction(text, "PUSH", 1, lineInstruction);
+                case "POP": return generalInstruction(text, "POP", 1, lineInstruction);
 
-                default: return instructionErrorDefault();
+                default:
+                    return instructionErrorDefault(lineInstruction);
             }
         } else {
-            return instructionErrorDefault();
+            return instructionErrorDefault(lineInstruction);
         }
     }
     
@@ -60,23 +63,24 @@ public class instructionMaker {
     
     //Crea una instruccion load o push con sus validaciones necesarias, si la funcon tira una instruccion error es
     //por una mala estructura de la instruccion load o push
-    private Instruction loadpushInstruction(String text, String type, int wei) {
+    private Instruction loadpushInstruction(String text, String type, int wei, int line) {
         Instruction loadpush = new Instruction();
         if (text.length() < 4) { // verifica que el texto tenga almenos 4 letras
-            return instructionErrorDefault();
+            return instructionErrorDefault(line);
         } else {
             if (text.substring(0, 4).equals(type)) {
                 loadpush.setType(type);
                 String registro = registerInstruction(text.substring(5, 7));
                 if (registro.equals("ERROR")) {
-                    return instructionErrorDefault();
+                    return instructionErrorDefault(line);
                 } else {
                     loadpush.setRegister1(registro);
                 }
             } else {
-                return instructionErrorDefault();
+                return instructionErrorDefault(line);
             }
             loadpush.setWeight(wei);
+            loadpush.setLine(line);
             return loadpush;
         }
     }
@@ -84,15 +88,15 @@ public class instructionMaker {
     //Crea una instruccion mov con sus validaciones necesarias, si la funcon tira una instruccion error es
     //por una mala estructura de la instruccion mov, verifica que el primer registro exista, que el segundo
     //parametro sea un registro valido o un número valido
-    private Instruction movInstruction(String text, int wei) {
+    private Instruction movInstruction(String text, int wei, int line) {
         Instruction mov = new Instruction();
         mov.setType("MOV");
         if (text.length() < 6) { // verifica que el texto tenga almenos 4 letras
-            return instructionErrorDefault();
+            return instructionErrorDefault(line);
         } else {
             String register1 = registerInstruction(text.substring(4, 6));
             if (register1.equals("ERROR")) { // verifica que el registro exista, si no es un error
-                return instructionErrorDefault();
+                return instructionErrorDefault(line);
             } else { // si el registro existe sigue
                 mov.setRegister1(register1); 
                 if (text.length() == 10) { // verifica que sea posible la existencia un registro y no un numero de 1 digito
@@ -102,7 +106,7 @@ public class instructionMaker {
                             int num = Integer.parseInt(text.substring(8).trim());
                             mov.setNumber(num);
                         } else { // sino es un numero es un error
-                            return instructionErrorDefault();
+                            return instructionErrorDefault(line);
                         }
                     } else { // es un registro 
                         mov.setRegister2(register2);
@@ -112,34 +116,39 @@ public class instructionMaker {
                         int num = Integer.parseInt(text.substring(8).trim());
                         mov.setNumber(num);
                     } else { // sino es un numero es un error
-                        return instructionErrorDefault();
+                        return instructionErrorDefault(line);
                     }
                 }
             }
         mov.setWeight(wei);
+        mov.setLine(line);
         return mov;
         }
     }
     
     //Crea una instruccion store con sus validaciones necesarias, si la funcon tira una instruccion error es
     //por una mala estructura de la instruccion store
-    private Instruction storeInstruction(String text, int wei) {
+    private Instruction storeInstruction(String text, int wei, int line) {
         Instruction store = new Instruction();
         if (text.length() < 5) { // verifica que el texto tenga almenos 4 letras
-            return instructionErrorDefault();
+            System.out.println("entro1");
+            return instructionErrorDefault(line);
         } else {
             if (text.substring(0, 5).equals("STORE")) {
                 store.setType("STORE");
                 String registro = registerInstruction(text.substring(6, 8));
                 if (registro.equals("ERROR")) {
-                    return instructionErrorDefault();
+                    System.out.println("entro2");
+                    return instructionErrorDefault(line);
                 } else {
                     store.setRegister1(registro);
                 }
             } else {
-                return instructionErrorDefault();
+                System.out.println("entro3");
+                return instructionErrorDefault(line);
             }
             store.setWeight(wei);
+            store.setLine(line);
             return store;
         }
     }
@@ -147,15 +156,15 @@ public class instructionMaker {
     //Crea una instruccion según el tipo con sus validaciones necesarias, si la funcon tira una instruccion error es
     //por una mala estructura de la instruccion, utilizada en instrucciones de 3 letras más un registro
     // ejemplo: "SUB BX", "ADD CX", "POP AX","DEC BX", "INC DX"
-    private Instruction generalInstruction(String text, String type, int wei) {
+    private Instruction generalInstruction(String text, String type, int wei, int line) {
         Instruction gen = new Instruction();
         gen.setType(type);
         if (text.length() < 6) { // verifica que el texto tenga almenos 6 letras
-            return instructionErrorDefault();
+            return instructionErrorDefault(line);
         } else {
             String registro = registerInstruction(text.substring(4, 6));
             if (registro.equals("ERROR")) {
-                return instructionErrorDefault();
+                return instructionErrorDefault(line);
             } else {
                 gen.setRegister1(registro);
             }
@@ -166,106 +175,112 @@ public class instructionMaker {
     
     //Crea una instruccion ind o dec con sus validaciones necesarias, si la funcon tira una instruccion error es
     //por una mala estructura de la instruccion dec o inc, además verifica que sea un inc o dec con o sin registro
-    private Instruction incdecInstruction(String text, String type, int wei) {
+    private Instruction incdecInstruction(String text, String type, int wei, int line) {
         if (text.length() == 3) {
             Instruction incdec = new Instruction();
             incdec.setType(type);
             incdec.setWeight(wei);
             return incdec;
         } else {
-            return generalInstruction(text, type, wei);
+            return generalInstruction(text, type, wei, line);
         }
     }
     
     //Crea una instruccion swap con sus validaciones necesarias, si la funcon tira una instruccion error es
     //por una mala estructura de la instruccion swap
-    private Instruction swapInstruction(String text, int wei) {
+    private Instruction swapInstruction(String text, int wei, int line) {
         Instruction swap = new Instruction();
         if (text.length() < 11) { // verifica que el texto tenga almenos 4 letras
-            return instructionErrorDefault();
+            return instructionErrorDefault(line);
         } else {
             if (text.substring(0, 4).equals("SWAP")) {
                 swap.setType("SWAP");
                 String register1 = registerInstruction(text.substring(5, 7));
                 String register2 = registerInstruction(text.substring(9, 11));
                 if (register1.equals("ERROR") || register2.equals("ERROR")) { // verifica que el registro exista, si no es un error
-                    return instructionErrorDefault();
+                    return instructionErrorDefault(line);
                 } else { // si el registro existe sigue
                     swap.setRegister1(register1);
                     swap.setRegister2(register2);
                 }
             } else {
-                return instructionErrorDefault();
+                return instructionErrorDefault(line);
             }
             swap.setWeight(wei);
+            swap.setLine(line);
             return swap;
         }
     }
     
     //Crea una instruccion jmp, je o jne con sus validaciones necesarias, si la funcon tira una instruccion error es
     //por una mala estructura de la instruccion jmp, je o jne
-    private Instruction jmpjejneInstruction(String text, String type, int wei) {
+    private Instruction jmpjejneInstruction(String text, String type, int wei, int line) {
         Instruction jmpjejne = new Instruction();
         if (type.equals("JE")) {
             if (isNumeric(text.substring(3))) {
                 jmpjejne.setNumber(Integer.parseInt(text.substring(3)));
             } else {
-                return instructionErrorDefault();
+                return instructionErrorDefault(line);
             }
         } else {
             if (isNumeric(text.substring(4))) {
                 jmpjejne.setNumber(Integer.parseInt(text.substring(4)));
             } else {
-                return instructionErrorDefault();
+                return instructionErrorDefault(line);
             }
         }
         jmpjejne.setType(type);
         jmpjejne.setWeight(wei);
+        jmpjejne.setLine(line);
         return jmpjejne;
     }
     
     //Crea una instruccion INT con sus validaciones necesarias, si la funcon tira una instruccion error es
     //por una mala estructura de la instruccion INT
-    private Instruction intInstruction(String text) {
+    private Instruction intInstruction(String text, int line) {
         Instruction iNt = new Instruction();
         if (text.length() < 7) {
-            return instructionErrorDefault();
+            return instructionErrorDefault(line);
         } else {
             if (text.substring(4, 7).equals("20H") || text.substring(4, 7).equals("09H") || text.substring(4, 7).equals("10H")) {
                 iNt.setRegister1(text.substring(4, 7));
             } else {
-                return instructionErrorDefault();
+                return instructionErrorDefault(line);
             }
             iNt.setType("INT");
+            iNt.setLine(line);
             return iNt;
         }
     }
     
     //Crea una instruccion cmp con sus validaciones necesarias, si la funcon tira una instruccion error es
     //por una mala estructura de la instruccion cmp
-    private Instruction cmpInstruction(String text, int wei) {
+    private Instruction cmpInstruction(String text, int wei, int line) {
         Instruction cmp = new Instruction();
         if (text.length() < 10) { // verifica que el texto tenga almenos 4 letras
-            return instructionErrorDefault();
+            return instructionErrorDefault(line);
         } else {    
             String register1 = registerInstruction(text.substring(4, 6));
             String register2 = registerInstruction(text.substring(8, 10));
             if (register1.equals("ERROR") || register2.equals("ERROR")) { // verifica que el registro exista, si no es un error
-                return instructionErrorDefault();
+                return instructionErrorDefault(line);
             } else { // si el registro existe sigue
                 cmp.setRegister1(register1);
                 cmp.setRegister2(register2);
             }
             cmp.setType("CMP");
             cmp.setWeight(wei);
+            cmp.setLine(line);
             return cmp;
         }
     }
     
     //Crea una instruccion de typo error por defaul
-    private Instruction instructionErrorDefault() {
+    private Instruction instructionErrorDefault(int line) {
         Instruction error = new Instruction();
         error.setError("Error de sintaxis de instruccion");
+        error.setLine(line);
+        
         return error;
     }
     
@@ -293,9 +308,5 @@ public class instructionMaker {
         return false;
     }
     return true;
-    }
-    
-    public static void main(String[] args) {
-        System.out.println("INT 10H".substring(4,7));
     }
 }

@@ -10,14 +10,14 @@ package gestorprocesos;
  * @author jordi
  */
 public class Instruction {
-    private String type;
-    private String register1;
-    private String register2;
+    private String type = "";
+    private String register1 = "";
+    private String register2 = "";
     private int number;
     private int weight;
     private int line;
     
-    private String error;
+    private String error = "";
 
     public Instruction() {
     }

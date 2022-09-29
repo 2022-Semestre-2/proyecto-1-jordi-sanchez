@@ -5,15 +5,19 @@
 package gestorprocesos;
 
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author jordi
+ * @author jordi y Kevin
  */
 public class Process {
     private BCP bcp;
     private List<Instruction> listInstructions;
     private int size = 0;
+    
+    public Process() {}
     
     private String[] splitData(String data, String limit){
         String[] arrOfStr = data.split(limit);
@@ -22,28 +26,6 @@ public class Process {
 
     public int getSize() {
         return size;
-    }
-    
-    public void createLista(String data){
-        String[] arrayIntruction = data.split("\n");
-        for (String instruccion : arrayIntruction) {
-            String[] arrayIntruction2 = instruccion.split(",");
-            String[] arrayIntruction3 = arrayIntruction2[0].split(" ");
-            Instruction instructionAdded = new Instruction(arrayIntruction3[0].trim());
-            if (arrayIntruction2.length > 1) {
-                if (isRegister(arrayIntruction2[1].trim())){
-                    
-                }else{
-                    int i = Integer.parseInt(arrayIntruction2[1].trim());
-                    instructionAdded.setNumber(i);
-                }   
-            } else {
-                instructionAdded.setNumber(0);
-            }
-            instructionAdded.setRegister1(arrayIntruction3[1].trim());
-            this.listInstructions.add(instructionAdded);
-            this.size++;
-        }
     }
     
     private boolean isRegister(String register){
@@ -77,5 +59,21 @@ public class Process {
         return listInstructions;
     }
 
-   
+    public void setListInstructions(List<Instruction> listValues) {
+        listInstructions = listValues;
+    }
+    
+    public boolean searchError() {
+        for (Instruction temp : listInstructions) {
+            if(!temp.getError().equals("")) {
+                JFrame f = new JFrame("frame");
+                JOptionPane.showMessageDialog(f ,
+                "Se ha encontrado un error en el codigo cargado en la linea "+Integer.toString(temp.getLine())+".",
+                "Error de archivo cargado" ,
+                JOptionPane.ERROR_MESSAGE);
+                return true;
+            }
+        }
+        return false;
+    }
 }
