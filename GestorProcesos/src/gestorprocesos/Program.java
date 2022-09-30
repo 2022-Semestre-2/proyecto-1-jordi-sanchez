@@ -11,10 +11,62 @@ package gestorprocesos;
 public class Program {
     private Memory memory1;
     private Memory memory2;
+    private Memory memory3;
     
     private CPU cpu1;
     private CPU cpu2;
+
+    public Program(int m1, int m2, int m3) {
+        Memory memory1L = new Memory(m1);
+        Memory memory2L = new Memory(m2);
+        Memory memory3L = new Memory(m3);
+        this.memory1 = memory1L;
+        this.memory2 = memory2L;
+        this.memory3 = memory3L;
+    }
     
-    
+    public int getProcesCount(){
+        return memory1.getListProcess().size() + memory2.getListProcess().size() + memory3.getListProcess().size();
+    }
+
+    public Memory getMemory1() {
+        return memory1;
+    }
+
+    public void setMemory1(Memory memory1) {
+        this.memory1 = memory1;
+    }
+
+    public Memory getMemory2() {
+        return memory2;
+    }
+
+    public void setMemory2(Memory memory2) {
+        this.memory2 = memory2;
+    }
+
+    public Memory getMemory3() {
+        return memory3;
+    }
+
+    public void setMemory3(Memory memory3) {
+        this.memory3 = memory3;
+    }
+
+    public CPU getCpu1() {
+        return cpu1;
+    }
+
+    public void setCpu1(CPU cpu1) {
+        this.cpu1 = cpu1;
+    }
+
+    public CPU getCpu2() {
+        return cpu2;
+    }
+
+    public void setCpu2(CPU cpu2) {
+        this.cpu2 = cpu2;
+    }
     
 }

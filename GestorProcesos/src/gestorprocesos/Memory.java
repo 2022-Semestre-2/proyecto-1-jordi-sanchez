@@ -18,6 +18,11 @@ public class Memory {
     private Process cuerrentProcess;
     private Process nextProcess;
     private List<Process> listProcess = new ArrayList<>();
+
+    public Memory(int Size) {
+        this.Size = Size;
+        this.availableMemory = Size;
+    }
     
     public boolean addProcess(Process process){
         if (this.availableMemory < process.getSize()){

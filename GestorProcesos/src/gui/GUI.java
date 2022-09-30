@@ -9,6 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import programcontroller.FileLoader;
 import gestorprocesos.Process;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  *
@@ -103,11 +107,6 @@ public class GUI extends javax.swing.JFrame {
         btnLoadFile.setBackground(new java.awt.Color(51, 153, 255));
         btnLoadFile.setForeground(new java.awt.Color(255, 255, 255));
         btnLoadFile.setText("Cargar archivo");
-        btnLoadFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoadFileActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -151,6 +150,11 @@ public class GUI extends javax.swing.JFrame {
                 "Procesos", "Estados"
             }
         ));
+        tableProcesses.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                tableProcessesComponentAdded(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableProcesses);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -477,27 +481,206 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAX_CPU2ActionPerformed
 
     private void btnLoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadFileActionPerformed
-        FileLoader fileLoader = new FileLoader();
-        fileLoader.loadFile();
-        String fileContent = fileLoader.getContent();
-        System.out.println(fileContent);
-        if (!fileContent.equals("")){
-            instructionMaker instructMaker = new instructionMaker();
-            Process process = new Process();
-            process.setListInstructions(instructMaker.createListInstruction(fileContent));
-            if (!process.searchError()) {
-                System.out.println("Se a podido cargar el proceso, falta poder cargarlo al controller de programa");
-            }
-        } else {
-            JFrame f = new JFrame("frame");
-            JOptionPane.showMessageDialog(f ,
-            "El archivo a cargar debe ser de extensión .ASM." ,
-            "Error de archivo cargado" ,
-            JOptionPane.ERROR_MESSAGE);
-        }
-        
+
     }//GEN-LAST:event_btnLoadFileActionPerformed
 
+    private void tableProcessesComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_tableProcessesComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableProcessesComponentAdded
+
+    public JButton getBtnClean() {
+        return btnClean;
+    }
+
+    public void setBtnClean(JButton btnClean) {
+        this.btnClean = btnClean;
+    }
+
+    public JButton getBtnExecute() {
+        return btnExecute;
+    }
+
+    public void setBtnExecute(JButton btnExecute) {
+        this.btnExecute = btnExecute;
+    }
+
+    public JButton getBtnLoadFile() {
+        return btnLoadFile;
+    }
+
+    public void setBtnLoadFile(JButton btnLoadFile) {
+        this.btnLoadFile = btnLoadFile;
+    }
+
+    public JButton getBtnNextStep() {
+        return btnNextStep;
+    }
+
+    public void setBtnNextStep(JButton btnNextStep) {
+        this.btnNextStep = btnNextStep;
+    }
+
+    public JButton getBtnStats() {
+        return btnStats;
+    }
+
+    public void setBtnStats(JButton btnStats) {
+        this.btnStats = btnStats;
+    }
+
+    public JTextArea getjTextArea1() {
+        return jTextArea1;
+    }
+
+    public void setjTextArea1(JTextArea jTextArea1) {
+        this.jTextArea1 = jTextArea1;
+    }
+
+    public JTable getTableDisc() {
+        return tableDisc;
+    }
+
+    public void setTableDisc(JTable tableDisc) {
+        this.tableDisc = tableDisc;
+    }
+
+    public JTable getTableMemory() {
+        return tableMemory;
+    }
+
+    public void setTableMemory(JTable tableMemory) {
+        this.tableMemory = tableMemory;
+    }
+
+    public JTable getTableProcesses() {
+        return tableProcesses;
+    }
+
+    public void setTableProcesses(JTable tableProcesses) {
+        this.tableProcesses = tableProcesses;
+    }
+
+    public JTextField getTextInput() {
+        return textInput;
+    }
+
+    public void setTextInput(JTextField textInput) {
+        this.textInput = textInput;
+    }
+
+    public JTextField getTxtAC_CPU1() {
+        return txtAC_CPU1;
+    }
+
+    public void setTxtAC_CPU1(JTextField txtAC_CPU1) {
+        this.txtAC_CPU1 = txtAC_CPU1;
+    }
+
+    public JTextField getTxtAC_CPU2() {
+        return txtAC_CPU2;
+    }
+
+    public void setTxtAC_CPU2(JTextField txtAC_CPU2) {
+        this.txtAC_CPU2 = txtAC_CPU2;
+    }
+
+    public JTextField getTxtAX_CPU1() {
+        return txtAX_CPU1;
+    }
+
+    public void setTxtAX_CPU1(JTextField txtAX_CPU1) {
+        this.txtAX_CPU1 = txtAX_CPU1;
+    }
+
+    public JTextField getTxtAX_CPU2() {
+        return txtAX_CPU2;
+    }
+
+    public void setTxtAX_CPU2(JTextField txtAX_CPU2) {
+        this.txtAX_CPU2 = txtAX_CPU2;
+    }
+
+    public JTextField getTxtBX_CPU1() {
+        return txtBX_CPU1;
+    }
+
+    public void setTxtBX_CPU1(JTextField txtBX_CPU1) {
+        this.txtBX_CPU1 = txtBX_CPU1;
+    }
+
+    public JTextField getTxtBX_CPU2() {
+        return txtBX_CPU2;
+    }
+
+    public void setTxtBX_CPU2(JTextField txtBX_CPU2) {
+        this.txtBX_CPU2 = txtBX_CPU2;
+    }
+
+    public JTextField getTxtCX_CPU1() {
+        return txtCX_CPU1;
+    }
+
+    public void setTxtCX_CPU1(JTextField txtCX_CPU1) {
+        this.txtCX_CPU1 = txtCX_CPU1;
+    }
+
+    public JTextField getTxtCX_CPU2() {
+        return txtCX_CPU2;
+    }
+
+    public void setTxtCX_CPU2(JTextField txtCX_CPU2) {
+        this.txtCX_CPU2 = txtCX_CPU2;
+    }
+
+    public JTextField getTxtDX_CPU1() {
+        return txtDX_CPU1;
+    }
+
+    public void setTxtDX_CPU1(JTextField txtDX_CPU1) {
+        this.txtDX_CPU1 = txtDX_CPU1;
+    }
+
+    public JTextField getTxtDX_CPU2() {
+        return txtDX_CPU2;
+    }
+
+    public void setTxtDX_CPU2(JTextField txtDX_CPU2) {
+        this.txtDX_CPU2 = txtDX_CPU2;
+    }
+
+    public JTextField getTxtIR_CPU1() {
+        return txtIR_CPU1;
+    }
+
+    public void setTxtIR_CPU1(JTextField txtIR_CPU1) {
+        this.txtIR_CPU1 = txtIR_CPU1;
+    }
+
+    public JTextField getTxtIR_CPU2() {
+        return txtIR_CPU2;
+    }
+
+    public void setTxtIR_CPU2(JTextField txtIR_CPU2) {
+        this.txtIR_CPU2 = txtIR_CPU2;
+    }
+
+    public JTextField getTxtPC_CPU1() {
+        return txtPC_CPU1;
+    }
+
+    public void setTxtPC_CPU1(JTextField txtPC_CPU1) {
+        this.txtPC_CPU1 = txtPC_CPU1;
+    }
+
+    public JTextField getTxtPC_CPU2() {
+        return txtPC_CPU2;
+    }
+
+    public void setTxtPC_CPU2(JTextField txtPC_CPU2) {
+        this.txtPC_CPU2 = txtPC_CPU2;
+    }
+
+    
     /**
      * @param args the command line arguments
      */

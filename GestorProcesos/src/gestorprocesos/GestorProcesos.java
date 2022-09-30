@@ -5,6 +5,7 @@
 package gestorprocesos;
 
 import gui.GUI;
+import controllers.Controller;
 
 /**
  *
@@ -16,8 +17,7 @@ public class GestorProcesos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        GUI userInterface = new GUI();
-        userInterface.setVisible(true);
+        new Controller().init();
     }
     
 }

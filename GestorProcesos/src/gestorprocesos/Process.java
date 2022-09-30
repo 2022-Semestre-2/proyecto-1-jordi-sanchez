@@ -16,6 +16,7 @@ public class Process {
     private BCP bcp;
     private List<Instruction> listInstructions;
     private int size = 0;
+    private String state = "nuevo";
     
     public Process() {}
     
@@ -27,6 +28,16 @@ public class Process {
     public int getSize() {
         return size;
     }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+    
+    
     
     private boolean isRegister(String register){
         switch (register) {
