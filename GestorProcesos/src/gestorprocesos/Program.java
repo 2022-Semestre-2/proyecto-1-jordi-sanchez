@@ -13,8 +13,11 @@ public class Program {
     private Memory memory2;
     private Memory memory3;
     
-    private CPU cpu1;
-    private CPU cpu2;
+    private int CPU_Use;
+    private CPU cpu1 = new CPU();
+    private CPU cpu2 = new CPU();
+    
+    
 
     public Program(int m1, int m2, int m3) {
         Memory memory1L = new Memory(m1);
@@ -23,6 +26,14 @@ public class Program {
         this.memory1 = memory1L;
         this.memory2 = memory2L;
         this.memory3 = memory3L;
+    }
+
+    public int getCPU_Use() {
+        return CPU_Use;
+    }
+
+    public void setCPU_Use(int CPU_Use) {
+        this.CPU_Use = CPU_Use;
     }
     
     public int getProcesCount(){

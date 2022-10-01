@@ -42,6 +42,7 @@ public class GUI extends javax.swing.JFrame {
         btnClean = new javax.swing.JButton();
         btnStats = new javax.swing.JButton();
         btnLoadFile = new javax.swing.JButton();
+        start_Btn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableProcesses = new javax.swing.JTable();
@@ -91,10 +92,12 @@ public class GUI extends javax.swing.JFrame {
         btnExecute.setBackground(new java.awt.Color(51, 153, 255));
         btnExecute.setForeground(new java.awt.Color(255, 255, 255));
         btnExecute.setText("Ejecutar");
+        btnExecute.setEnabled(false);
 
         btnNextStep.setBackground(new java.awt.Color(51, 153, 255));
         btnNextStep.setForeground(new java.awt.Color(255, 255, 255));
         btnNextStep.setText("Siguiente");
+        btnNextStep.setEnabled(false);
 
         btnClean.setBackground(new java.awt.Color(51, 153, 255));
         btnClean.setForeground(new java.awt.Color(255, 255, 255));
@@ -103,13 +106,19 @@ public class GUI extends javax.swing.JFrame {
         btnStats.setBackground(new java.awt.Color(51, 153, 255));
         btnStats.setForeground(new java.awt.Color(255, 255, 255));
         btnStats.setText("Estadistica");
+        btnStats.setEnabled(false);
 
         btnLoadFile.setBackground(new java.awt.Color(51, 153, 255));
         btnLoadFile.setForeground(new java.awt.Color(255, 255, 255));
         btnLoadFile.setText("Cargar archivo");
-        btnLoadFile.addActionListener(new java.awt.event.ActionListener() {
+
+        start_Btn.setBackground(new java.awt.Color(51, 153, 255));
+        start_Btn.setForeground(new java.awt.Color(255, 255, 255));
+        start_Btn.setText("Iniciar");
+        start_Btn.setEnabled(false);
+        start_Btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoadFileActionPerformed(evt);
+                start_BtnActionPerformed(evt);
             }
         });
 
@@ -122,6 +131,8 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnLoadFile)
+                        .addGap(18, 18, 18)
+                        .addComponent(start_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnExecute)
@@ -143,17 +154,21 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(btnClean)
                     .addComponent(btnStats))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(btnLoadFile)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLoadFile)
+                    .addComponent(start_Btn))
                 .addGap(14, 14, 14))
         );
 
         tableProcesses.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null},
             },
             new String [] {
                 "Procesos", "Estados"
             }
         ));
+        tableProcesses.setEnabled(false);
         jScrollPane1.setViewportView(tableProcesses);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -174,105 +189,94 @@ public class GUI extends javax.swing.JFrame {
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BPC actual CPU 1", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(51, 153, 255))); // NOI18N
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtPC_CPU1.setEditable(false);
+        txtPC_CPU1.setBackground(new java.awt.Color(255, 255, 255));
         txtPC_CPU1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPC_CPU1ActionPerformed(evt);
             }
         });
+        jPanel3.add(txtPC_CPU1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 24, 170, -1));
 
+        txtIR_CPU1.setEditable(false);
+        txtIR_CPU1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(txtIR_CPU1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 52, 170, -1));
+
+        txtAC_CPU1.setEditable(false);
+        txtAC_CPU1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(txtAC_CPU1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 80, 170, -1));
+
+        txtAX_CPU1.setEditable(false);
+        txtAX_CPU1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(txtAX_CPU1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 120, 170, -1));
+
+        txtBX_CPU1.setEditable(false);
+        txtBX_CPU1.setBackground(new java.awt.Color(255, 255, 255));
         txtBX_CPU1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBX_CPU1ActionPerformed(evt);
             }
         });
+        jPanel3.add(txtBX_CPU1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 148, 170, -1));
+
+        txtCX_CPU1.setEditable(false);
+        txtCX_CPU1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(txtCX_CPU1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 176, 170, -1));
+
+        txtDX_CPU1.setEditable(false);
+        txtDX_CPU1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(txtDX_CPU1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 204, 170, -1));
 
         jLabel1.setText("PC");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 27, -1, -1));
 
         jLabel2.setText("IR");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(241, 55, -1, -1));
 
         jLabel3.setText("AC");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(235, 83, -1, -1));
 
         jLabel4.setText("AX");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 123, -1, -1));
 
         jLabel5.setText("BX");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(237, 151, -1, -1));
 
         jLabel6.setText("CX");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 179, -1, -1));
 
         jLabel7.setText("DX");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtCX_CPU1)
-                            .addComponent(txtBX_CPU1)
-                            .addComponent(txtDX_CPU1))
-                        .addGap(55, 55, 55)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtAX_CPU1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                            .addComponent(txtAC_CPU1)
-                            .addComponent(txtIR_CPU1)
-                            .addComponent(txtPC_CPU1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPC_CPU1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIR_CPU1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtAC_CPU1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtAX_CPU1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBX_CPU1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCX_CPU1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDX_CPU1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 207, -1, -1));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BPC actual CPU 2", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(51, 153, 255))); // NOI18N
 
+        txtPC_CPU2.setEditable(false);
+        txtPC_CPU2.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtIR_CPU2.setEditable(false);
+        txtIR_CPU2.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtAC_CPU2.setEditable(false);
+        txtAC_CPU2.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtAX_CPU2.setEditable(false);
+        txtAX_CPU2.setBackground(new java.awt.Color(255, 255, 255));
         txtAX_CPU2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAX_CPU2ActionPerformed(evt);
             }
         });
+
+        txtBX_CPU2.setEditable(false);
+        txtBX_CPU2.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtCX_CPU2.setEditable(false);
+        txtCX_CPU2.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtDX_CPU2.setEditable(false);
+        txtDX_CPU2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel8.setText("PC");
 
@@ -349,20 +353,24 @@ public class GUI extends javax.swing.JFrame {
 
         tableMemory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null}
             },
             new String [] {
                 "Pos", "Valor en memoria"
             }
         ));
+        tableMemory.setEnabled(false);
         jScrollPane2.setViewportView(tableMemory);
 
         tableDisc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null}
             },
             new String [] {
                 "Pos", "Valor en disco"
             }
         ));
+        tableDisc.setEnabled(false);
         jScrollPane3.setViewportView(tableDisc);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -391,6 +399,9 @@ public class GUI extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(51, 153, 255));
         jLabel15.setText(">>Ingrese un valor:");
 
+        textInput.setEditable(false);
+
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane4.setViewportView(jTextArea1);
@@ -433,8 +444,8 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -455,11 +466,11 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -485,6 +496,19 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tableProcessesComponentAdded
 
+    private void start_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_start_BtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_start_BtnActionPerformed
+
+    public JButton getStart_Btn() {
+        return start_Btn;
+    }
+
+    public void setStart_Btn(JButton start_Btn) {
+        this.start_Btn = start_Btn;
+    }
+
+    
     public JButton getBtnClean() {
         return btnClean;
     }
@@ -745,6 +769,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton start_Btn;
     private javax.swing.JTable tableDisc;
     private javax.swing.JTable tableMemory;
     private javax.swing.JTable tableProcesses;

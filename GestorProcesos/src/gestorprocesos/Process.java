@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author jordi y Kevin
  */
 public class Process {
-    private BCP bcp;
+    private BCP bcp = new BCP();
     private List<Instruction> listInstructions;
     private int size = 0;
     private String state = "nuevo";

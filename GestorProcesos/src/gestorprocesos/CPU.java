@@ -11,6 +11,22 @@ package gestorprocesos;
 public class CPU {
     private Process currentProcess;
     private int currentLine = 0;
+
+    public Process getCurrentProcess() {
+        return currentProcess;
+    }
+
+    public void setCurrentProcess(Process currentProcess) {
+        this.currentProcess = currentProcess;
+    }
+
+    public int getCurrentLine() {
+        return currentLine;
+    }
+
+    public void setCurrentLine(int currentLine) {
+        this.currentLine = currentLine;
+    }
     
     public boolean ejecuteProcessInstruction(){
         if (currentProcess.getListInstructions().size() > currentLine) {
@@ -23,6 +39,7 @@ public class CPU {
             }
             return true;
         } else {
+            currentProcess.setState("Finalizado");
             return false;
         }
     }

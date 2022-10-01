@@ -16,14 +16,12 @@ public class Memory {
     private int currentMemory; // for position of next process
     private int availableMemory;
     private Process cuerrentProcess;
-    private Process nextProcess;
     private List<Process> listProcess = new ArrayList<>();
     private int currentAmountMemoryUsed;
 
     public Memory(int Size) {
         this.Size = Size;
         this.availableMemory = Size;
-        this.currentAmountMemoryUsed = 0;
     }
     
     public boolean addProcess(Process process){
@@ -65,14 +63,6 @@ public class Memory {
 
     public void setCuerrentProcess(Process cuerrentProcess) {
         this.cuerrentProcess = cuerrentProcess;
-    }
-
-    public Process getNextProcess() {
-        return nextProcess;
-    }
-
-    public void setNextProcess(Process nextProcess) {
-        this.nextProcess = nextProcess;
     }
 
     public List<Process> getListProcess() {
