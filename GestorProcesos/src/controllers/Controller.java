@@ -54,13 +54,10 @@ public class Controller {
     private void setProcessTable(Process process) {
         int memoryProcess = process.getListInstructions().size();
         if (p.getMemory1().getcurrentAmountMemoryUsed() + memoryProcess <= p.getMemory1().getSize()) {
-            p.getMemory1().addProcess(process);
             setProcessesTableMemory(process);
         } else if (p.getMemory2().getcurrentAmountMemoryUsed() + memoryProcess <= p.getMemory2().getSize()) {
-            p.getMemory2().addProcess(process);
             setProcessesTableDisc(process);
         } else {
-            p.getMemory3().addProcess(process);
             System.out.println("Se ingreso en la memoria virtual");
         }
         
@@ -163,7 +160,6 @@ public class Controller {
         v.getBtnNextStep().setEnabled(true);
         v.getBtnExecute().setEnabled(true);
         v.getStart_Btn().setEnabled(false);
-        p.getMemory1().setCuerrentProcess(p.getMemory1().getListProcess().get(0));
         startCPUS();
     }
     
@@ -204,9 +200,10 @@ public class Controller {
     private void actionBtnNextStep() {
         if (p.getCPU_Use() == 1) {
             if (!p.getCpu1().ejecuteProcessInstruction()){
-                if (p.getMemory1().getListProcess().size() >= 2) {
+                if (p.getMemory1().getListProcess().size() > 1) {
                     setMemoryFinishProcess();
                     startCPUS();
+                    cln_BCP();
                     actionBtnNextStep();
                 } else {
                     JFrame f = new JFrame("frame");
@@ -218,9 +215,10 @@ public class Controller {
             }
         } else {
             if (!p.getCpu2().ejecuteProcessInstruction()){
-                if (p.getMemory1().getListProcess().size() >= 2) {
+                if (p.getMemory1().getListProcess().size() > 1) {
                     setMemoryFinishProcess();
                     startCPUS();
+                    cln_BCP();
                     actionBtnNextStep();
                 } else {
                     JFrame f = new JFrame("frame");
@@ -234,6 +232,19 @@ public class Controller {
         refreshBCP();
     }
     
+    private void cln_BCP(){
+            v.getTxtAC_CPU1().setText("");
+            v.getTxtAX_CPU1().setText("");
+            v.getTxtBX_CPU1().setText("");
+            v.getTxtCX_CPU1().setText("");
+            v.getTxtDX_CPU1().setText("");
+          
+            v.getTxtAC_CPU2().setText("");
+            v.getTxtAX_CPU2().setText("");
+            v.getTxtBX_CPU2().setText("");
+            v.getTxtCX_CPU2().setText("");
+            v.getTxtDX_CPU2().setText("");
+    }
     private void refreshBCP(){
         if (p.getCPU_Use() == 1) {
 //            v.getTxtIR_CPU1();
@@ -243,14 +254,16 @@ public class Controller {
             v.getTxtBX_CPU1().setText(p.getCpu1().getCurrentProcess().getBcp().getBX());
             v.getTxtCX_CPU1().setText(p.getCpu1().getCurrentProcess().getBcp().getCX());
             v.getTxtDX_CPU1().setText(p.getCpu1().getCurrentProcess().getBcp().getDX());
-                    
+          
         } else {
             v.getTxtAC_CPU2().setText(p.getCpu2().getCurrentProcess().getBcp().getAC());
             v.getTxtAX_CPU2().setText(p.getCpu2().getCurrentProcess().getBcp().getAX());
             v.getTxtBX_CPU2().setText(p.getCpu2().getCurrentProcess().getBcp().getBX());
             v.getTxtCX_CPU2().setText(p.getCpu2().getCurrentProcess().getBcp().getCX());
             v.getTxtDX_CPU2().setText(p.getCpu2().getCurrentProcess().getBcp().getDX());
+            
         }
+        
     }
     
     private void setMemoryFinishProcess() {

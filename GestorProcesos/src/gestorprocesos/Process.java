@@ -13,20 +13,12 @@ import javax.swing.JOptionPane;
  * @author jordi y Kevin
  */
 public class Process {
-    private BCP bcp = new BCP();
+    private final BCP bcp;
     private List<Instruction> listInstructions;
-    private int size = 0;
     private String state = "nuevo";
     
-    public Process() {}
-    
-    private String[] splitData(String data, String limit){
-        String[] arrOfStr = data.split(limit);
-        return arrOfStr;
-    }
-
-    public int getSize() {
-        return size;
+    public Process() {
+        this.bcp = new BCP();
     }
 
     public String getState() {
@@ -36,7 +28,6 @@ public class Process {
     public void setState(String state) {
         this.state = state;
     }
-    
     
     
     private boolean isRegister(String register){
@@ -63,15 +54,15 @@ public class Process {
     }
         
     public BCP getBcp() {
-        return bcp;
+        return this.bcp;
     }
 
     public List<Instruction> getListInstructions() {
-        return listInstructions;
+        return this.listInstructions;
     }
 
     public void setListInstructions(List<Instruction> listValues) {
-        listInstructions = listValues;
+        this.listInstructions = listValues;
     }
     
     public boolean searchError() {

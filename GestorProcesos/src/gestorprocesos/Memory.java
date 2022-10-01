@@ -25,7 +25,7 @@ public class Memory {
     }
     
     public boolean addProcess(Process process){
-        if (this.availableMemory < process.getSize()){
+        if (this.availableMemory < process.getListInstructions().size()){
             return false;
         } else {
           listProcess.add(process);

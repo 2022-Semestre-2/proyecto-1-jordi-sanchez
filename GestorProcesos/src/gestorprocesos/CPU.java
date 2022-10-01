@@ -73,7 +73,7 @@ public class CPU {
     }
     
     private void ejecuteMov(){
-        if (currentProcess.getListInstructions().get(currentLine).getRegister2().isBlank()) { 
+        if (currentProcess.getListInstructions().get(currentLine).getRegister2().isEmpty()) { 
             // si el registro 2 es nulo es porque es un mov con numero
             // si entra cambia de una vez el primer registro por el numero
             setValueRegister(currentProcess.getListInstructions().get(currentLine).getRegister1(), currentProcess.getListInstructions().get(currentLine).getNumber()+"");
@@ -82,9 +82,6 @@ public class CPU {
             String valueRegister = getValueRegister(currentProcess.getListInstructions().get(currentLine).getRegister2()); 
             setValueRegister(currentProcess.getListInstructions().get(currentLine).getRegister1(), valueRegister);
         }
-        // registra el valor obtenido del registro ac
-        String valueRegister = getValueRegister("AC"); 
-        setValueRegister(currentProcess.getListInstructions().get(currentLine).getRegister1(), valueRegister);
     }
     
     private void ejecuteAdd(){
@@ -173,6 +170,13 @@ public class CPU {
             }
             default -> throw new AssertionError();
         }
+        System.out.println("******** BCP");
+        System.out.println(currentProcess.getBcp().getAC()); 
+            System.out.println(currentProcess.getBcp().getAX());   
+            System.out.println(currentProcess.getBcp().getBX()); 
+            System.out.println(currentProcess.getBcp().getCX()); 
+            System.out.println(currentProcess.getBcp().getDX()); 
+            System.out.println("*****************");
     }
     
 }
