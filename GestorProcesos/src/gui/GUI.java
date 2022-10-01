@@ -107,6 +107,11 @@ public class GUI extends javax.swing.JFrame {
         btnLoadFile.setBackground(new java.awt.Color(51, 153, 255));
         btnLoadFile.setForeground(new java.awt.Color(255, 255, 255));
         btnLoadFile.setText("Cargar archivo");
+        btnLoadFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadFileActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,17 +149,11 @@ public class GUI extends javax.swing.JFrame {
 
         tableProcesses.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
             },
             new String [] {
                 "Procesos", "Estados"
             }
         ));
-        tableProcesses.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentAdded(java.awt.event.ContainerEvent evt) {
-                tableProcessesComponentAdded(evt);
-            }
-        });
         jScrollPane1.setViewportView(tableProcesses);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -350,7 +349,6 @@ public class GUI extends javax.swing.JFrame {
 
         tableMemory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
             },
             new String [] {
                 "Pos", "Valor en memoria"
@@ -360,7 +358,6 @@ public class GUI extends javax.swing.JFrame {
 
         tableDisc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
             },
             new String [] {
                 "Pos", "Valor en disco"

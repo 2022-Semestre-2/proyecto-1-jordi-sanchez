@@ -112,5 +112,21 @@ public class Instruction {
            default -> throw new AssertionError();
        }
    }
+
+    @Override
+    public String toString() {
+        String InstructionText= type;
+        if(!register1.equals("")) {
+            InstructionText += " "+register1;
+            if(!register2.equals("")) {
+                InstructionText += ", "+register2;
+            }
+            if(number != 0) {
+                InstructionText += ", "+Integer.toString(number);
+            }
+        }
+        return InstructionText;
+    }
     
+   
 }

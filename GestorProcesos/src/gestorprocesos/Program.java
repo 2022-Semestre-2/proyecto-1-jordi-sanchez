@@ -68,5 +68,4 @@ public class Program {
     public void setCpu2(CPU cpu2) {
         this.cpu2 = cpu2;
     }
-    
 }
