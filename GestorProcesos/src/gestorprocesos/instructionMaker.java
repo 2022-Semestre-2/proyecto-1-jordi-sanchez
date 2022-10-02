@@ -81,6 +81,7 @@ public class instructionMaker {
             }
             loadpush.setWeight(wei);
             loadpush.setLine(line);
+            loadpush.setInst(text);
             return loadpush;
         }
     }
@@ -120,6 +121,7 @@ public class instructionMaker {
                     }
                 }
             }
+        mov.setInst(text);
         mov.setWeight(wei);
         mov.setLine(line);
         return mov;
@@ -147,6 +149,7 @@ public class instructionMaker {
                 System.out.println("entro3");
                 return instructionErrorDefault(line);
             }
+            store.setInst(text);
             store.setWeight(wei);
             store.setLine(line);
             return store;
@@ -168,6 +171,7 @@ public class instructionMaker {
             } else {
                 gen.setRegister1(registro);
             }
+            gen.setInst(text);
             gen.setWeight(wei);
             return gen;
         }
@@ -206,6 +210,7 @@ public class instructionMaker {
             } else {
                 return instructionErrorDefault(line);
             }
+            swap.setInst(text);
             swap.setWeight(wei);
             swap.setLine(line);
             return swap;
@@ -229,6 +234,7 @@ public class instructionMaker {
                 return instructionErrorDefault(line);
             }
         }
+        jmpjejne.setInst(text);
         jmpjejne.setType(type);
         jmpjejne.setWeight(wei);
         jmpjejne.setLine(line);
@@ -247,6 +253,7 @@ public class instructionMaker {
             } else {
                 return instructionErrorDefault(line);
             }
+            iNt.setInst(text);
             iNt.setType("INT");
             iNt.setLine(line);
             return iNt;
@@ -268,6 +275,7 @@ public class instructionMaker {
                 cmp.setRegister1(register1);
                 cmp.setRegister2(register2);
             }
+            cmp.setInst(text);
             cmp.setType("CMP");
             cmp.setWeight(wei);
             cmp.setLine(line);

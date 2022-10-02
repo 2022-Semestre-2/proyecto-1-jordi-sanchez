@@ -13,6 +13,7 @@ public class Instruction {
     private String type = "";
     private String register1 = "";
     private String register2 = "";
+    private String inst;
     private int number;
     private int weight;
     private int currentWeight;
@@ -21,6 +22,14 @@ public class Instruction {
     private String error = "";
 
     public Instruction() {
+    }
+
+    public String getInst() {
+        return inst;
+    }
+
+    public void setInst(String inst) {
+        this.inst = inst;
     }
 
     public int getCurrentWeight() {

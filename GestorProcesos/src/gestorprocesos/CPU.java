@@ -32,6 +32,8 @@ public class CPU {
         if (currentProcess.getListInstructions().size() > currentLine) {
             int peso = currentProcess.getListInstructions().get(currentLine).getCurrentWeight();
             currentProcess.getListInstructions().get(currentLine).setCurrentWeight(peso - 1);
+            currentProcess.getBcp().setPC(currentProcess.getListInstructions().get(currentLine).getLine()+"");
+            setValueRegister("IR", currentProcess.getListInstructions().get(currentLine).getInst());
             if ( peso - 1 == 0) {
                 ejecuteInstruction();
                 currentProcess.getListInstructions().get(currentLine).setCurrentWeight(currentProcess.getListInstructions().get(currentLine).getWeight());
@@ -168,15 +170,12 @@ public class CPU {
                 currentProcess.getBcp().setDX(value);
                 break;
             }
+            case "IR" -> {
+                currentProcess.getBcp().setIR(value);
+                break;
+            }
             default -> throw new AssertionError();
         }
-        System.out.println("******** BCP");
-        System.out.println(currentProcess.getBcp().getAC()); 
-            System.out.println(currentProcess.getBcp().getAX());   
-            System.out.println(currentProcess.getBcp().getBX()); 
-            System.out.println(currentProcess.getBcp().getCX()); 
-            System.out.println(currentProcess.getBcp().getDX()); 
-            System.out.println("*****************");
     }
     
 }

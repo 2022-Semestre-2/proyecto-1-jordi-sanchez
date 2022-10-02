@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Memory {
     private int Size;
-    private int currentMemory; // for position of next process
+    private int currentMemory = 1; // for position of next process
     private int availableMemory;
     private Process cuerrentProcess;
     private List<Process> listProcess = new ArrayList<>();
@@ -29,9 +29,17 @@ public class Memory {
             return false;
         } else {
           listProcess.add(process);
+          setMemoriInstruction(process);
           return true;
         }
     }  
+    
+    private void setMemoriInstruction(Process proc) {
+        for (Instruction inst : proc.getListInstructions()) {
+            inst.setLine(currentMemory);
+            currentMemory++;
+        }
+    }
 
     public int getSize() {
         return Size;

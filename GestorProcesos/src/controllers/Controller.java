@@ -24,6 +24,11 @@ public class Controller {
     
     public GUI v;
     public Program p;
+    static String state = "";
+    public int inst = 0;
+    abstract class threadProcess implements Runnable {
+
+    }
     
     public Controller() {
         v = new GUI();
@@ -99,6 +104,10 @@ public class Controller {
         v.getBtnClean().addActionListener((ActionEvent e) -> {
             actionCleanBtn();
         });
+        
+        v.getBtnExecute().addActionListener((ActionEvent e) -> {
+            autoExecute();
+        });
     }
     
     
@@ -155,6 +164,9 @@ public class Controller {
         }
         
     }
+    
+    
+    
     private void actionStartBtn() {
         v.getBtnLoadFile().setEnabled(false);
         v.getBtnNextStep().setEnabled(true);
@@ -206,6 +218,7 @@ public class Controller {
                     cln_BCP();
                     actionBtnNextStep();
                 } else {
+                    this.state = "END";
                     JFrame f = new JFrame("frame");
                     JOptionPane.showMessageDialog(f ,
                     "El Programa a terminado" ,
@@ -221,6 +234,7 @@ public class Controller {
                     cln_BCP();
                     actionBtnNextStep();
                 } else {
+                    this.state = "END";
                     JFrame f = new JFrame("frame");
                     JOptionPane.showMessageDialog(f ,
                     "El Programa a terminado" ,
@@ -229,7 +243,25 @@ public class Controller {
                 }
             }
         }
+        inst++;
         refreshBCP();
+    }
+    
+    private void autoExecute() {
+        Thread done;
+        done = new Thread( new  threadProcess() {
+            public void run() {
+                while (state != "END") {
+                    try {
+                        Thread.sleep((1000));
+                    } catch (InterruptedException e) {
+                        System.err.println("se cayó");
+                    }
+                    actionBtnNextStep();
+                }
+            }
+        });
+        done.start();
     }
     
     private void cln_BCP(){
@@ -249,6 +281,8 @@ public class Controller {
         if (p.getCPU_Use() == 1) {
 //            v.getTxtIR_CPU1();
 //            v.getTxtPC_CPU1();
+            v.getTxtPC_CPU1().setText(p.getCpu1().getCurrentProcess().getBcp().getPC());
+            v.getTxtIR_CPU1().setText(p.getCpu1().getCurrentProcess().getBcp().getIR());
             v.getTxtAC_CPU1().setText(p.getCpu1().getCurrentProcess().getBcp().getAC());
             v.getTxtAX_CPU1().setText(p.getCpu1().getCurrentProcess().getBcp().getAX());
             v.getTxtBX_CPU1().setText(p.getCpu1().getCurrentProcess().getBcp().getBX());
@@ -256,6 +290,8 @@ public class Controller {
             v.getTxtDX_CPU1().setText(p.getCpu1().getCurrentProcess().getBcp().getDX());
           
         } else {
+            v.getTxtPC_CPU2().setText(p.getCpu2().getCurrentProcess().getBcp().getPC());
+            v.getTxtIR_CPU2().setText(p.getCpu2().getCurrentProcess().getBcp().getIR());
             v.getTxtAC_CPU2().setText(p.getCpu2().getCurrentProcess().getBcp().getAC());
             v.getTxtAX_CPU2().setText(p.getCpu2().getCurrentProcess().getBcp().getAX());
             v.getTxtBX_CPU2().setText(p.getCpu2().getCurrentProcess().getBcp().getBX());
