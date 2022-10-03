@@ -4,14 +4,22 @@
  */
 package gestorprocesos;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author jordi
  */
 public class CPU {
+    private List<Process> finishedProcesses = new ArrayList<>();
     private Process currentProcess;
     private int currentLine = 0;
 
+    public List<Process> getFinishedProcesses() {
+        return finishedProcesses;
+    }
+    
     public Process getCurrentProcess() {
         return currentProcess;
     }
@@ -29,6 +37,10 @@ public class CPU {
     }
     
     public boolean ejecuteProcessInstruction(){
+        if (currentLine == 0) {
+            LocalDateTime ldt = LocalDateTime.now();
+            currentProcess.setStarted(ldt);
+        }
         if (currentProcess.getListInstructions().size() > currentLine) {
             int peso = currentProcess.getListInstructions().get(currentLine).getCurrentWeight();
             currentProcess.getListInstructions().get(currentLine).setCurrentWeight(peso - 1);
@@ -41,7 +53,11 @@ public class CPU {
             }
             return true;
         } else {
+            LocalDateTime ldt = LocalDateTime.now();
+            currentProcess.setFinished(ldt);
             currentProcess.setState("Finalizado");
+            finishedProcesses.add(currentProcess);
+            currentLine = 0;
             return false;
         }
     }
