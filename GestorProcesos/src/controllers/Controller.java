@@ -8,6 +8,7 @@ import gestorprocesos.Instruction;
 import gestorprocesos.instructionMaker;
 import gestorprocesos.Process;
 import gestorprocesos.Program;
+import gui.Configuration;
 import gui.GUI;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
@@ -23,6 +24,7 @@ public class Controller {
     
     public GUI v;
     public Program p;
+    public Configuration c;
     static String state = "";
     public int inst = 0;
     private int processesCount = 1;
@@ -33,6 +35,7 @@ public class Controller {
     public Controller() {
         v = new GUI();
         p = new Program(128,512,64);
+        c = new Configuration();
     }
     
     private boolean verifyMemorys(Process process){
@@ -164,6 +167,35 @@ public class Controller {
                         allProcesses ,
                         "Estadisticas de procesos" ,
                         JOptionPane.WARNING_MESSAGE);
+        v.getBtnConfig().addActionListener((ActionEvent e) -> {
+            configurationMenu();
+        });
+        
+        c.getBtnCancel().addActionListener((ActionEvent e) -> {
+            cancelConfig();
+        });
+        c.getBtnSave().addActionListener((ActionEvent e) -> {
+            saveConfig();
+        });
+        
+    }
+    
+    private void cancelConfig(){
+        c.getMemoryD().setText("");
+        c.getMemoryP().setText("");
+        c.getMemoryV().setText("");
+        c.setVisible(false);
+    }
+    
+    private void saveConfig(){
+        if (!c.getMemoryP().getText().isEmpty() && !c.getMemoryD().getText().isEmpty() && !c.getMemoryP().getText().isEmpty()) {
+            this.p = new Program(Integer.parseInt(c.getMemoryP().getText().trim()), Integer.parseInt(c.getMemoryD().getText().trim()), Integer.parseInt(c.getMemoryV().getText().trim()));
+            cancelConfig();
+        }
+    }
+    
+    private void configurationMenu() {
+        c.setVisible(true);
     }
     
     private void actionLoadFileBtn() {
@@ -181,6 +213,7 @@ public class Controller {
                     setProcessLoad(process);
                     setProcessTable(process);
                     v.getStart_Btn().setEnabled(true);
+                    v.getBtnConfig().setEnabled(false);
                 } else {
                     JFrame f = new JFrame("frame");
                     JOptionPane.showMessageDialog(f ,
@@ -232,6 +265,7 @@ public class Controller {
     
     private void CleanBtn_Program() {
         v.getBtnLoadFile().setEnabled(true);
+        v.getBtnConfig().setEnabled(true);
         v.getBtnNextStep().setEnabled(false);
         v.getBtnExecute().setEnabled(false);
         v.getStart_Btn().setEnabled(false);
