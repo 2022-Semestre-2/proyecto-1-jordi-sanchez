@@ -22,6 +22,10 @@ public class BCP {
     private String currentTime;
     private String State;
 
+    public boolean cmpRegisters (String register1, String register2) {
+        return (getRegister(register1).equals(getRegister(register2)));
+    }
+    
     public int getLocation() {
         return location;
     }
@@ -116,6 +120,26 @@ public class BCP {
 
     public void setState(String State) {
         this.State = State;
+    }
+    
+        private String getRegister(String register){
+        switch (register) {
+            case "AX" -> {
+                return AX;
+            }
+            case "BX" -> {
+                return BX;
+            }
+               case "CX" -> {
+                   return CX;
+            }
+               case "DX" -> {
+                   return DX;
+            }
+           default -> {
+               return  "";
+            }
+        }
     }
   
 }

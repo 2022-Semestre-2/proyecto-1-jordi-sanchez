@@ -12,6 +12,21 @@ public class CPU {
     private Process currentProcess;
     private int currentLine = 0;
 
+    public boolean isInstructionIrregular() {
+        String type = "";
+        if (currentProcess.getListInstructions().size() > currentLine) {
+            type = currentProcess.getListInstructions().get(currentLine).getType();
+        }
+        return type == "CMP" || type == "INT" || type == "JMP" || type == "JNE" || type == "JE";
+    }
+    
+    public boolean isJMP() {
+        return currentProcess.getListInstructions().get(currentLine).getType() == "JMP";
+    }
+    
+    public Instruction getCurrentInstruction() {
+        return currentProcess.getListInstructions().get(currentLine);
+    }
     public Process getCurrentProcess() {
         return currentProcess;
     }
@@ -56,11 +71,17 @@ public class CPU {
             case "INC" -> ejecuteInc();
             case "DEC" -> ejecuteDec();
             case "SWAP" -> ejecuteSwap();
-            default -> throw new AssertionError();
+            case "CMP" -> ejecuteCmp();
+            default -> System.out.println("no entá disponible");
         }
     }
     
     // ############################# Ejecucion de instrucciones ###################################
+    
+    private void ejecuteCmp(){
+        // registra el valor obtenido del registro a buscar en el bcp
+        
+    }
     
     private void ejecuteLoad(){
         // registra el valor obtenido del registro a buscar en el bcp
