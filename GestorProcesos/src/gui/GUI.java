@@ -181,7 +181,6 @@ public class GUI extends javax.swing.JFrame {
 
         tableProcesses.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
             },
             new String [] {
                 "Procesos", "Estados"
@@ -372,7 +371,6 @@ public class GUI extends javax.swing.JFrame {
 
         tableMemory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
             },
             new String [] {
                 "Pos", "Valor en memoria"
@@ -383,7 +381,6 @@ public class GUI extends javax.swing.JFrame {
 
         tableDisc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
             },
             new String [] {
                 "Pos", "Valor en disco"
@@ -489,7 +486,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(343, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
