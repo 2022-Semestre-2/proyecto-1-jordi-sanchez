@@ -11,7 +11,6 @@ import gestorprocesos.Program;
 import gui.Configuration;
 import gui.GUI;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -30,7 +29,9 @@ public class Controller {
     public int inst = 0;
     
     boolean comparator = false;
+
     
+    private int processesCount = 1;
     abstract class threadProcess implements Runnable {
 
     }
@@ -42,6 +43,8 @@ public class Controller {
     }
     
     private boolean verifyMemorys(Process process){
+        process.setID("Proceso " + processesCount);
+        processesCount++;
         if (p.getMemory1().addProcess(process)) {
             return true;
         } else {
@@ -115,6 +118,59 @@ public class Controller {
             autoExecute();
         });
         
+        v.getBtnStats().addActionListener((ActionEvent e) -> {
+            actionShowStats();
+        });
+    }
+    
+    private int calculateSecondsDif(Process current) {
+        int SECONDS = 60;
+        int SECONDS_PER_MINUTE = 60;
+        int SECONDS_PER_HOUR = SECONDS_PER_MINUTE*SECONDS;
+        
+        int startHour = current.getStarted().getHour() * SECONDS_PER_HOUR;
+        int startMinute = current.getStarted().getMinute() * SECONDS_PER_MINUTE;
+        int startSecond = current.getStarted().getSecond();
+        int amountSecondsStart = startHour + startMinute + startSecond;
+        System.out.println(amountSecondsStart);
+        
+        int finishHour = current.getFinished().getHour() * SECONDS_PER_HOUR;
+        int finishMinute = current.getFinished().getMinute() * SECONDS_PER_MINUTE;
+        int finishSecond = current.getFinished().getSecond();
+        int amountSecondsFinish = finishHour + finishMinute + finishSecond;
+        System.out.println(amountSecondsFinish);
+        
+        return amountSecondsFinish - amountSecondsStart;
+    }
+    
+    private void actionShowStats() {
+        String allProcesses = "";
+        for (Process temp : p.getCpu1().getFinishedProcesses()) {
+            String name = temp.getID();
+            String start = temp.getStarted().getHour()+":"+temp.getStarted().getMinute()+":"+temp.getStarted().getSecond();
+            String finish = temp.getFinished().getHour()+":"+temp.getFinished().getMinute()+":"+temp.getFinished().getSecond();
+            
+            int secondsDif = calculateSecondsDif(temp);
+            
+            allProcesses += name + ", inicio: " + start + ", finalización: " + finish + ", Duración en segundos: "+ secondsDif +"\n";
+            System.out.println("==============\n"+allProcesses);
+        }
+        for (Process temp : p.getCpu2().getFinishedProcesses()) {
+            String name = temp.getID();
+            String start = temp.getStarted().getHour()+":"+temp.getStarted().getMinute()+":"+temp.getStarted().getSecond();
+            String finish = temp.getFinished().getHour()+":"+temp.getFinished().getMinute()+":"+temp.getFinished().getSecond();
+            
+            int secondsDif = calculateSecondsDif(temp);
+            
+            allProcesses += name + ", inicio: " + start + ", finalización: " + finish + ", Duración en segundos: "+ secondsDif + "\n";
+            System.out.println("==============\n"+allProcesses);
+        }
+        
+        JFrame f = new JFrame("frame");
+                    JOptionPane.showMessageDialog(f ,
+                        allProcesses ,
+                        "Estadisticas de procesos" ,
+                        JOptionPane.WARNING_MESSAGE);
         v.getBtnConfig().addActionListener((ActionEvent e) -> {
             configurationMenu();
         });
@@ -241,7 +297,20 @@ public class Controller {
             String headerDisc[] = new String[]{"Pos", "Valor en disco"};
             dtmDisc.setColumnIdentifiers(headerDisc);
             v.getTableDisc().setModel(dtmDisc);
+            
+            //Limpia los botones
             CleanBtn_Program();
+            
+            //limpia los textFields de los BPCs
+            cln_BCP();
+            
+            //limpia todo lo relacionado a la pantalla
+            v.getTextInput().setText("");
+            v.getjTextArea1().setText("");
+            
+            state = "";
+            inst = 0;
+            processesCount = 1;
     }
     
     
@@ -318,6 +387,12 @@ public class Controller {
                         "La instruccion JMP no fue posible por desbordamiento de proceso" ,
                         "JMP fallido" ,
                         JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(f ,
+                    "El Programa a terminado" ,
+                    "Fin de ejecución" ,
+                    JOptionPane.ERROR_MESSAGE);
+                    
+                    v.getBtnStats().setEnabled(true);
                 }
             }
         }
@@ -348,12 +423,16 @@ public class Controller {
             v.getTxtBX_CPU1().setText("");
             v.getTxtCX_CPU1().setText("");
             v.getTxtDX_CPU1().setText("");
-          
+            v.getTxtPC_CPU1().setText("");
+            v.getTxtIR_CPU1().setText("");
+            
             v.getTxtAC_CPU2().setText("");
             v.getTxtAX_CPU2().setText("");
             v.getTxtBX_CPU2().setText("");
             v.getTxtCX_CPU2().setText("");
             v.getTxtDX_CPU2().setText("");
+            v.getTxtPC_CPU2().setText("");
+            v.getTxtIR_CPU2().setText("");
     }
     private void refreshBCP(){
         if (p.getCPU_Use() == 1) {
