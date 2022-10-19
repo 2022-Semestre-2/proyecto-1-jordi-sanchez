@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import programcontroller.FileLoader;
 import gestorprocesos.Process;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -562,6 +563,22 @@ public class GUI extends javax.swing.JFrame {
             this.labelQbit.setVisible(false);
         }
     }//GEN-LAST:event_cmb_box_PlanificationItemStateChanged
+
+    public JComboBox<String> getCmb_box_Planification() {
+        return cmb_box_Planification;
+    }
+
+    public void setCmb_box_Planification(JComboBox<String> cmb_box_Planification) {
+        this.cmb_box_Planification = cmb_box_Planification;
+    }
+
+    public JComboBox<String> getCmb_box_qbit() {
+        return cmb_box_qbit;
+    }
+
+    public void setCmb_box_qbit(JComboBox<String> cmb_box_qbit) {
+        this.cmb_box_qbit = cmb_box_qbit;
+    }
 
     public JButton getStart_Btn() {
         return start_Btn;

@@ -20,10 +20,18 @@ public class Process {
     private LocalDateTime started;
     private LocalDateTime finished;
     private String ID;
+    private int time = -1; // tiempo de llegada
     private int actualInstruction = 0; // utilizarla para ver la pocisión de instrucción por la que va en la ejecución 
     private int memoryDir; // utilizarla para acomodar el proceso en las memorias
-    
 
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+    
     public LocalDateTime getStarted() {
         return started;
     }

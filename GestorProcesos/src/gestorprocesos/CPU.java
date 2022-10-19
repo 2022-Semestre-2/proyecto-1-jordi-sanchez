@@ -7,18 +7,55 @@ package gestorprocesos;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 /**
  *
  * @author jordi
  */
 public class CPU {
     private final List<Process> finishedProcesses = new ArrayList<>();
+    private List<Process> listProcess = new ArrayList<>(); // guarda todos los procesos ingresados
+    private List<String> orderProcess = new ArrayList<>(); // guardara el array del orden de la ejecución segun el algoritmo
     private Process currentProcess;
     private int currentLine = 0;
+    private int lastTime; // creara los tiempos de los procesos y guardará el tiempo de ingreso del último proceso
+    private String algorithm = "FCFS";
+    private int qbit;
 
+    
+    public void setQbit(int qbit) {
+        this.qbit = qbit;
+    }
+
+    public List<Process> getListProcess() {
+        return listProcess;
+    }
+
+    public void setListProcess(List<Process> listProcess) {
+        this.listProcess = listProcess;
+    }
+
+    public List<String> getOrderProcess() {
+        return orderProcess;
+    }
+
+    public void setOrderProcess(List<String> orderProcess) {
+        this.orderProcess = orderProcess;
+    }
+
+    
     public List<Process> getFinishedProcesses() {
         return finishedProcesses;
     }
+
+    public String getAlgorithm() {
+        return algorithm;
+    }
+
+    public void setAlgorithm(String algorithm) {
+        this.algorithm = algorithm;
+    }
+    
     
     public boolean isInstructionIrregular() {
         String type = "";
@@ -212,6 +249,91 @@ public class CPU {
             }
             default -> throw new AssertionError();
         }
+    }
+    
+    //setea los tiempos de llegada de los procesos detras del último entre 1 a 5 segundos despues del último processo en ser cargado
+    private void setTimeProcess() {
+        for (Process process : listProcess) {
+            if (process.getTime() == -1) {
+                Random r = new Random();
+                int rand = r.nextInt((5 - 1) + 1) + 1;
+                process.setTime(lastTime + rand );
+                lastTime = lastTime + rand;
+            } 
+        }
+    }
+    
+    private void executePACorresponds(){
+        switch (algorithm) {
+            case "FCFS" -> {
+                
+                break;
+            }
+            case "SPN" -> {
+                
+                break;
+            }
+            case "SRT" -> {
+                
+                break;
+            }
+            case "RR" -> {
+                executeRR();
+                break;
+            }
+            case "HRRN" -> {
+                
+                break;
+            }
+            default -> throw new AssertionError();
+        }
+    }
+    
+    //
+    public List<String> executeRR() {
+        List<Process> listTemp = new ArrayList<>(listProcess);
+        List<String> listRet = new ArrayList<>();
+        int countProcess = listTemp.size();
+        int bandera = 0;
+        int itera = 0;
+        while (bandera < countProcess) {
+            int qbitTemp = qbit;
+            int indexTemp = getIndexLessInstruction(listTemp);
+            for (int i = 1; i <= qbitTemp; i++ ) {
+                //si la lista de instrucciones del proceso menos la instrucción actual es mayor a cero, es decir, hay más instucciones para ejecutar.
+                if ((listTemp.get(indexTemp).getListInstructions().size() - listTemp.get(indexTemp).getActualInstruction()) > 0) {
+                    listTemp.get(indexTemp).setActualInstruction(listTemp.get(indexTemp).getActualInstruction()+1);
+                    String id = listTemp.get(indexTemp).getID();
+                    listRet.add(id);
+                } else {
+                    if (i == qbitTemp) {
+                        listTemp.remove(indexTemp);
+                        bandera++;
+                    }
+                }
+            }
+            itera++;
+        }
+        return listRet;
+    }
+    
+    //encuentra el index del processo con menor numero de instrucciones
+    private int getIndexLessInstruction(List<Process> list) {
+        int id = 0;
+        int current = 0;
+        int lastProcess = 0;
+        for (Process process : list) {
+            if (lastProcess == 0){
+                lastProcess = process.getListInstructions().size();
+            } else {
+                if (lastProcess > process.getListInstructions().size()) {
+                    lastProcess = process.getListInstructions().size();
+                    id = current;
+                }
+            }
+            current++;
+        }
+        return id;
     }
     
 }

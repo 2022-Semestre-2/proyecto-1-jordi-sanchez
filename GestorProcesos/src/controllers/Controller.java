@@ -11,6 +11,7 @@ import gestorprocesos.Program;
 import gui.Configuration;
 import gui.GUI;
 import java.awt.event.ActionEvent;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -27,7 +28,6 @@ public class Controller {
     public Configuration c;
     static String state = "";
     public int inst = 0;
-
     
     boolean comparator = false;
     private int processesCount = 1;
@@ -218,6 +218,8 @@ public class Controller {
                 if (verifyMemorys(process)) {
                     setProcessLoad(process);
                     setProcessTable(process);
+                    p.getCpu1().getListProcess().add(process);
+                    p.getCpu2().getListProcess().add(process);
                     v.getStart_Btn().setEnabled(true);
                     v.getBtnConfig().setEnabled(false);
                 } else {
@@ -262,11 +264,21 @@ public class Controller {
     
     
     private void actionStartBtn() {
+        p.getCpu1().setAlgorithm((String) v.getCmb_box_Planification().getSelectedItem());
+        p.getCpu2().setAlgorithm((String) v.getCmb_box_Planification().getSelectedItem());
+        if (((String) v.getCmb_box_Planification().getSelectedItem()).equals("RR")){
+            p.getCpu1().setQbit((Integer.parseInt(v.getCmb_box_qbit().getSelectedItem().toString())));
+            p.getCpu2().setQbit((Integer.parseInt(v.getCmb_box_qbit().getSelectedItem().toString())));
+        }
         v.getBtnLoadFile().setEnabled(false);
         v.getBtnNextStep().setEnabled(true);
         v.getBtnExecute().setEnabled(true);
         v.getStart_Btn().setEnabled(false);
         startCPUS();
+        List<String> list = p.getCpu1().executeRR();
+        for (String string : list) {
+            System.out.println(string + "  <<<<<<<");
+        }
     }
     
     private void CleanBtn_Program() {
