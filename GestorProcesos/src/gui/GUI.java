@@ -25,6 +25,8 @@ public class GUI extends javax.swing.JFrame {
      */
     public GUI() {
         initComponents();
+        this.cmb_box_qbit.setVisible(false);
+        this.labelQbit.setVisible(false);
     }
 
     /**
@@ -44,6 +46,9 @@ public class GUI extends javax.swing.JFrame {
         btnLoadFile = new javax.swing.JButton();
         start_Btn = new javax.swing.JButton();
         btnConfig = new javax.swing.JButton();
+        cmb_box_Planification = new javax.swing.JComboBox<>();
+        labelQbit = new javax.swing.JLabel();
+        cmb_box_qbit = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableProcesses = new javax.swing.JTable();
@@ -133,6 +138,22 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        cmb_box_Planification.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FCFS", "SPN", "SRT", "RR", "HRRN" }));
+        cmb_box_Planification.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmb_box_PlanificationItemStateChanged(evt);
+            }
+        });
+        cmb_box_Planification.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_box_PlanificationActionPerformed(evt);
+            }
+        });
+
+        labelQbit.setText("q = ");
+
+        cmb_box_qbit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -146,17 +167,22 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnNextStep, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                     .addComponent(start_Btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(btnClean)
                         .addGap(18, 18, 18)
                         .addComponent(btnStats)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(cmb_box_Planification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelQbit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmb_box_qbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(btnConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +201,10 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnLoadFile)
-                            .addComponent(start_Btn))))
+                            .addComponent(start_Btn)
+                            .addComponent(cmb_box_Planification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelQbit)
+                            .addComponent(cmb_box_qbit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(14, 14, 14))
         );
 
@@ -520,6 +549,20 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConfigActionPerformed
 
+    private void cmb_box_PlanificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_box_PlanificationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_box_PlanificationActionPerformed
+
+    private void cmb_box_PlanificationItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmb_box_PlanificationItemStateChanged
+        if (this.cmb_box_Planification.getSelectedItem().equals("RR")) {
+            this.cmb_box_qbit.setVisible(true);
+            this.labelQbit.setVisible(true);
+        } else {
+            this.cmb_box_qbit.setVisible(false);
+            this.labelQbit.setVisible(false);
+        }
+    }//GEN-LAST:event_cmb_box_PlanificationItemStateChanged
+
     public JButton getStart_Btn() {
         return start_Btn;
     }
@@ -772,6 +815,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton btnLoadFile;
     private javax.swing.JButton btnNextStep;
     private javax.swing.JButton btnStats;
+    private javax.swing.JComboBox<String> cmb_box_Planification;
+    private javax.swing.JComboBox<String> cmb_box_qbit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -798,6 +843,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel labelQbit;
     private javax.swing.JButton start_Btn;
     private javax.swing.JTable tableDisc;
     private javax.swing.JTable tableMemory;

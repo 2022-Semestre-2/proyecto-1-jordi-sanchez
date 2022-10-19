@@ -12,7 +12,7 @@ import java.util.List;
  * @author jordi
  */
 public class CPU {
-    private List<Process> finishedProcesses = new ArrayList<>();
+    private final List<Process> finishedProcesses = new ArrayList<>();
     private Process currentProcess;
     private int currentLine = 0;
 
@@ -25,11 +25,11 @@ public class CPU {
         if (currentProcess.getListInstructions().size() > currentLine) {
             type = currentProcess.getListInstructions().get(currentLine).getType();
         }
-        return type == "CMP" || type == "INT" || type == "JMP" || type == "JNE" || type == "JE";
+        return "INT".equals(type) || "CMP".equals(type) || "JMP".equals(type) || "JNE".equals(type) || "JE".equals(type);
     }
     
     public boolean isJMP() {
-        return currentProcess.getListInstructions().get(currentLine).getType() == "JMP";
+        return "JMP".equals(currentProcess.getListInstructions().get(currentLine).getType());
     }
     
     public Instruction getCurrentInstruction() {
@@ -59,15 +59,12 @@ public class CPU {
             currentProcess.setStarted(ldt);
         }
         if (currentProcess.getListInstructions().size() > currentLine) {
-            int peso = currentProcess.getListInstructions().get(currentLine).getCurrentWeight();
-            currentProcess.getListInstructions().get(currentLine).setCurrentWeight(peso - 1);
+            //PA = PlanificationAlgorithm
+            //executePACorresponds();
             currentProcess.getBcp().setPC(currentProcess.getListInstructions().get(currentLine).getLine()+"");
             setValueRegister("IR", currentProcess.getListInstructions().get(currentLine).getInst());
-            if ( peso - 1 == 0) {
-                ejecuteInstruction();
-                currentProcess.getListInstructions().get(currentLine).setCurrentWeight(currentProcess.getListInstructions().get(currentLine).getWeight());
-                this.currentLine += 1;
-            }
+            ejecuteInstruction();
+            this.currentLine += 1;
             return true;
         } else {
             LocalDateTime ldt = LocalDateTime.now();

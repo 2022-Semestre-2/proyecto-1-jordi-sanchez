@@ -20,9 +20,12 @@ public class Process {
     private LocalDateTime started;
     private LocalDateTime finished;
     private String ID;
+    private int actualInstruction = 0; // utilizarla para ver la pocisión de instrucción por la que va en la ejecución 
+    private int memoryDir; // utilizarla para acomodar el proceso en las memorias
     
-    public Process() {
-        this.bcp = new BCP();
+
+    public LocalDateTime getStarted() {
+        return started;
     }
 
     public String getID() {
@@ -33,9 +36,26 @@ public class Process {
         this.ID = ID;
     }
 
-    public LocalDateTime getStarted() {
-        return started;
+    public int getActualInstruction() {
+        return actualInstruction;
     }
+
+    public void setActualInstruction(int actualInstruction) {
+        this.actualInstruction = actualInstruction;
+    }
+
+    public int getMemoryDir() {
+        return memoryDir;
+    }
+
+    public void setMemoryDir(int memoryDir) {
+        this.memoryDir = memoryDir;
+    }
+    
+    public Process() {
+        this.bcp = new BCP();
+    }
+
 
     public void setStarted(LocalDateTime started) {
         this.started = started;

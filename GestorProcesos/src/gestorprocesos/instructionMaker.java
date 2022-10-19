@@ -79,7 +79,6 @@ public class instructionMaker {
             } else {
                 return instructionErrorDefault(line);
             }
-            loadpush.setWeight(wei);
             loadpush.setLine(line);
             loadpush.setInst(text);
             return loadpush;
@@ -122,7 +121,6 @@ public class instructionMaker {
                 }
             }
         mov.setInst(text);
-        mov.setWeight(wei);
         mov.setLine(line);
         return mov;
         }
@@ -150,7 +148,6 @@ public class instructionMaker {
                 return instructionErrorDefault(line);
             }
             store.setInst(text);
-            store.setWeight(wei);
             store.setLine(line);
             return store;
         }
@@ -172,7 +169,6 @@ public class instructionMaker {
                 gen.setRegister1(registro);
             }
             gen.setInst(text);
-            gen.setWeight(wei);
             return gen;
         }
     }
@@ -183,7 +179,6 @@ public class instructionMaker {
         if (text.length() == 3) {
             Instruction incdec = new Instruction();
             incdec.setType(type);
-            incdec.setWeight(wei);
             return incdec;
         } else {
             return generalInstruction(text, type, wei, line);
@@ -211,7 +206,6 @@ public class instructionMaker {
                 return instructionErrorDefault(line);
             }
             swap.setInst(text);
-            swap.setWeight(wei);
             swap.setLine(line);
             return swap;
         }
@@ -236,7 +230,6 @@ public class instructionMaker {
         }
         jmpjejne.setInst(text);
         jmpjejne.setType(type);
-        jmpjejne.setWeight(wei);
         jmpjejne.setLine(line);
         return jmpjejne;
     }
@@ -277,7 +270,6 @@ public class instructionMaker {
             }
             cmp.setInst(text);
             cmp.setType("CMP");
-            cmp.setWeight(wei);
             cmp.setLine(line);
             return cmp;
         }

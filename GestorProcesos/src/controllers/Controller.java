@@ -337,21 +337,6 @@ public class Controller {
                                 "Fin de ejecución" ,
                                 JOptionPane.ERROR_MESSAGE);
                     }
-            if (!p.getCpu1().ejecuteProcessInstruction()){
-                if (p.getMemory1().getListProcess().size() > 1) {
-                    setMemoryFinishProcess();
-                    startCPUS();
-                    cln_BCP();
-                    actionBtnNextStep();
-                } else {
-                    this.state = "END";
-                    JFrame f = new JFrame("frame");
-                    JOptionPane.showMessageDialog(f ,
-                    "El Programa a terminado" ,
-                    "Fin de ejecución" ,
-                    JOptionPane.ERROR_MESSAGE);
-                    
-                    v.getBtnStats().setEnabled(true);
                 }
             }
         } else {
@@ -383,7 +368,7 @@ public class Controller {
         if (p.getCPU_Use() == 1) {
             if (p.getCpu1().isJMP()) {
                 int addsub = p.getCpu1().getCurrentLine() + p.getCpu1().getCurrentInstruction().getNumber();
-                if (addsub < p.getCpu1().getCurrentProcess().getListInstructions().size()) {
+                if (addsub < p.getCpu1().getCurrentProcess().getListInstructions().size() && addsub >= 0) {
                     p.getCpu1().setCurrentLine(addsub);
                 } else {
                     JFrame f = new JFrame("frame");
@@ -396,7 +381,7 @@ public class Controller {
         } else {
             if (p.getCpu1().isJMP()) {
                 int addsub = p.getCpu1().getCurrentLine() + p.getCpu1().getCurrentInstruction().getNumber();
-                if (addsub < p.getCpu1().getCurrentProcess().getListInstructions().size()) {
+                if (addsub < p.getCpu1().getCurrentProcess().getListInstructions().size() && addsub >= 0) {
                     p.getCpu1().setCurrentLine(addsub);
                 } else {
                     JFrame f = new JFrame("frame");

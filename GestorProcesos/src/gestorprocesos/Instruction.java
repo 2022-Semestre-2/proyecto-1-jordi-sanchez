@@ -15,8 +15,6 @@ public class Instruction {
     private String register2 = "";
     private String inst;
     private int number;
-    private int weight;
-    private int currentWeight;
     private int line;
     
     private String error = "";
@@ -32,14 +30,6 @@ public class Instruction {
         this.inst = inst;
     }
 
-    public int getCurrentWeight() {
-        return currentWeight;
-    }
-
-    public void setCurrentWeight(int curretWeight) {
-        this.currentWeight = curretWeight;
-    }
-
     
     public int getLine() {
         return line;
@@ -47,15 +37,6 @@ public class Instruction {
 
     public void setLine(int line) {
         this.line = line;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
-        this.currentWeight = weight;
     }
 
     public String getError() {
