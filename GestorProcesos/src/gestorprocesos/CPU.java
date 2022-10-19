@@ -36,9 +36,6 @@ public class CPU {
         return currentProcess.getListInstructions().get(currentLine);
     }
 
-    public List<Process> getFinishedProcesses() {
-        return finishedProcesses;
-    }
     
     public Process getCurrentProcess() {
         return currentProcess;

@@ -118,8 +118,18 @@ public class Controller {
             autoExecute();
         });
         
+        v.getBtnConfig().addActionListener((ActionEvent e) -> {
+            configurationMenu();
+        });
+        
         v.getBtnStats().addActionListener((ActionEvent e) -> {
             actionShowStats();
+        });
+        c.getBtnCancel().addActionListener((ActionEvent e) -> {
+            cancelConfig();
+        });
+        c.getBtnSave().addActionListener((ActionEvent e) -> {
+            saveConfig();
         });
     }
     
@@ -175,12 +185,7 @@ public class Controller {
             configurationMenu();
         });
         
-        c.getBtnCancel().addActionListener((ActionEvent e) -> {
-            cancelConfig();
-        });
-        c.getBtnSave().addActionListener((ActionEvent e) -> {
-            saveConfig();
-        });
+        
         
     }
     
@@ -334,6 +339,7 @@ public class Controller {
                                 "El Programa a terminado" ,
                                 "Fin de ejecución" ,
                                 JOptionPane.ERROR_MESSAGE);
+                        v.getBtnStats().setEnabled(true);
                     }
                 }
             }
@@ -473,7 +479,6 @@ public class Controller {
                 p.getMemory3().getListProcess().remove(p.getMemory3().getListProcess().remove(0));
             }
         }
-        
     }
     
     private void selectCPU(){
