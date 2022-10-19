@@ -27,11 +27,11 @@ public class Controller {
     public Configuration c;
     static String state = "";
     public int inst = 0;
-    
-    boolean comparator = false;
 
     
+    boolean comparator = false;
     private int processesCount = 1;
+
     abstract class threadProcess implements Runnable {
 
     }
@@ -117,20 +117,20 @@ public class Controller {
         v.getBtnExecute().addActionListener((ActionEvent e) -> {
             autoExecute();
         });
-        
         v.getBtnConfig().addActionListener((ActionEvent e) -> {
             configurationMenu();
         });
-        
         v.getBtnStats().addActionListener((ActionEvent e) -> {
             actionShowStats();
         });
+
         c.getBtnCancel().addActionListener((ActionEvent e) -> {
             cancelConfig();
         });
         c.getBtnSave().addActionListener((ActionEvent e) -> {
             saveConfig();
         });
+
     }
     
     private int calculateSecondsDif(Process current) {
@@ -181,9 +181,6 @@ public class Controller {
                         allProcesses ,
                         "Estadisticas de procesos" ,
                         JOptionPane.WARNING_MESSAGE);
-        v.getBtnConfig().addActionListener((ActionEvent e) -> {
-            configurationMenu();
-        });
         
         
         
@@ -339,8 +336,22 @@ public class Controller {
                                 "El Programa a terminado" ,
                                 "Fin de ejecución" ,
                                 JOptionPane.ERROR_MESSAGE);
-                        v.getBtnStats().setEnabled(true);
                     }
+            if (!p.getCpu1().ejecuteProcessInstruction()){
+                if (p.getMemory1().getListProcess().size() > 1) {
+                    setMemoryFinishProcess();
+                    startCPUS();
+                    cln_BCP();
+                    actionBtnNextStep();
+                } else {
+                    this.state = "END";
+                    JFrame f = new JFrame("frame");
+                    JOptionPane.showMessageDialog(f ,
+                    "El Programa a terminado" ,
+                    "Fin de ejecución" ,
+                    JOptionPane.ERROR_MESSAGE);
+                    
+                    v.getBtnStats().setEnabled(true);
                 }
             }
         } else {
@@ -479,6 +490,7 @@ public class Controller {
                 p.getMemory3().getListProcess().remove(p.getMemory3().getListProcess().remove(0));
             }
         }
+        
     }
     
     private void selectCPU(){
