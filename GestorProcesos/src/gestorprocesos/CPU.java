@@ -292,29 +292,58 @@ public class CPU {
     //
     public List<String> executeRR() {
         List<Process> listTemp = new ArrayList<>(listProcess);
+        List<Process> listTempTimer = new ArrayList<>();
         List<String> listRet = new ArrayList<>();
-        int countProcess = listTemp.size();
         int bandera = 0;
-        int itera = 0;
-        while (bandera < countProcess) {
-            int qbitTemp = qbit;
-            int indexTemp = getIndexLessInstruction(listTemp);
-            for (int i = 1; i <= qbitTemp; i++ ) {
-                //si la lista de instrucciones del proceso menos la instrucción actual es mayor a cero, es decir, hay más instucciones para ejecutar.
-                if ((listTemp.get(indexTemp).getListInstructions().size() - listTemp.get(indexTemp).getActualInstruction()) > 0) {
-                    listTemp.get(indexTemp).setActualInstruction(listTemp.get(indexTemp).getActualInstruction()+1);
-                    String id = listTemp.get(indexTemp).getID();
-                    listRet.add(id);
-                } else {
-                    if (i == qbitTemp) {
-                        listTemp.remove(indexTemp);
-                        bandera++;
+        int qbitTemp = qbit;
+        int currentTime = 0;
+        while (!(listTemp.isEmpty() && listTempTimer.isEmpty())) {
+            if(!listTemp.isEmpty()) {
+                for (int i = 0; i < listTemp.size(); i++) {
+                    if(listTemp.get(i).getTime() <= currentTime){
+                        listTempTimer.add(listTemp.get(i));
+                        listTemp.remove(i);
+                        i--;
                     }
                 }
             }
-            itera++;
+            int qbitdef = 0;
+            for (int i = 1; i <= qbitTemp; i++ ) {
+                if (!listTempTimer.isEmpty()) {
+                    if ((listTempTimer.get(0).getListInstructions().size() - listTempTimer.get(0).getActualInstruction()) > 0) {
+                        listTempTimer.get(0).setActualInstruction(listTempTimer.get(0).getActualInstruction()+1);
+                        String id = listTempTimer.get(0).getID();
+                        listRet.add(id);
+                        qbitdef++;
+                    } else {
+                        if (i == qbitTemp) {
+                            listTempTimer.remove(0);
+                        }
+                    }
+                }
+            }
+            currentTime += qbitdef;
+            if(!listTemp.isEmpty()) {
+                for (int i = 0; i < listTemp.size(); i++) {
+                    if(listTemp.get(i).getTime() <= currentTime){
+                        listTempTimer.add(listTemp.get(i));
+                        listTemp.remove(i);
+                        i--;
+                    }
+                }
+            }
+            firtTolastProcess(listTempTimer);
         }
         return listRet;
+    }
+    
+    private List<Process> firtTolastProcess(List<Process> processes) {
+        if (!processes.isEmpty()) {
+            Process first = processes.get(0);
+            processes.remove(0);
+            processes.add(first);
+        }
+        return processes;
     }
     
     //encuentra el index del processo con menor numero de instrucciones
